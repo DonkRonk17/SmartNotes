@@ -1,0 +1,5 @@
+# SmartNotes
+# No external dependencies required - uses only Python standard library!
+
+# If you want to install it system-wide (optional):
+# pip install -e .
