@@ -1,3 +1,5 @@
+<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/94192820-4973-4f39-b298-35115d2c2863" />
+
 # 📝 SmartNotes - AI-Powered Note Taking & Organization
 
 **Never lose a thought again!** SmartNotes is a lightweight, command-line note-taking tool with automatic tagging, full-text search, and smart organization.
@@ -400,6 +402,9 @@ python smartnotes.py list
 Your notes are **100% private** and stay on your machine.
 
 ---
+
+<img width="1024" height="1024" alt="image" src="https://github.com/user-attachments/assets/f1e05d70-55e4-40a4-8a36-beaba55b2363" />
+
 
 ## 🤝 Contributing
 
