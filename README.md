@@ -452,7 +452,7 @@ If you find SmartNotes useful:
 
 ---
 
-**Created by Team Brain**  
+**Created by Randell Logan Smith and Team Brain**  
 **Part of the Holy Grail Automation Project**
 
 Capture your thoughts, find them instantly, organize them effortlessly! 📝
