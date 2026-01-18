@@ -452,7 +452,12 @@ If you find SmartNotes useful:
 
 ---
 
-**Created by Randell Logan Smith and Team Brain**  
-**Part of the Holy Grail Automation Project**
+## 🙏 Credits
+
+Created by **Randell Logan Smith and Team Brain** at [Metaphy LLC](https://metaphysicsandcomputing.com)
+
+Part of the HMSS (Heavenly Morning Star System) ecosystem.
+
+---
 
 Capture your thoughts, find them instantly, organize them effortlessly! 📝
