@@ -237,7 +237,7 @@ class SmartNotes:
             return False
 
         existing_tags = note.get("tags", [])
-        new_tags = [t.lower().strip('#') for t in tags]
+        new_tags = [t.lower().strip().strip('#') for t in tags]
         note["tags"] = list(set(existing_tags + new_tags))
         note["modified"] = datetime.now().isoformat()
 

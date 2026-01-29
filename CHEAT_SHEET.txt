@@ -1,0 +1,293 @@
+================================================================================
+SMARTNOTES CHEAT SHEET
+================================================================================
+
+QUICK START
+-----------
+1. Install: git clone https://github.com/DonkRonk17/SmartNotes.git
+2. First run: python smartnotes.py add "My first note!"
+3. List notes: python smartnotes.py list
+
+================================================================================
+COMMON COMMANDS
+--------------------------------------------------------------------------------
+
+ADD NOTES:
+  python smartnotes.py add "Your note here"
+  python smartnotes.py add "Note with #hashtag tags"
+  python smartnotes.py add "Note" --tags tag1 tag2 tag3
+
+LIST NOTES:
+  python smartnotes.py list                    # All notes (newest first)
+  python smartnotes.py list --limit 10         # First 10 notes
+  python smartnotes.py list --tag python       # Filter by tag
+
+SEARCH NOTES:
+  python smartnotes.py search "keyword"        # Find notes containing text
+  python smartnotes.py search "python" --limit 5
+
+SHOW FULL NOTE:
+  python smartnotes.py show 5                  # Show note #5 with all details
+
+EDIT NOTES:
+  python smartnotes.py edit 5 "New content"    # Replace note content
+  python smartnotes.py tag 5 urgent important  # Add tags to note
+
+DELETE NOTES:
+  python smartnotes.py delete 5                # Delete note #5
+
+================================================================================
+TAG MANAGEMENT
+--------------------------------------------------------------------------------
+
+VIEW ALL TAGS:
+  python smartnotes.py tags                    # List all tags with counts
+
+ADD TAGS TO NOTE:
+  python smartnotes.py tag 5 newtag anothertag
+
+HASHTAG EXTRACTION:
+  - Any #word becomes a tag automatically
+  - Example: "Meeting #urgent #work" -> tags: urgent, work
+
+KEYWORD EXTRACTION:
+  - Words 4+ letters are auto-tagged
+  - Common words (the, that, with) are excluded
+
+================================================================================
+EXPORT & BACKUP
+--------------------------------------------------------------------------------
+
+EXPORT AS TEXT:
+  python smartnotes.py export                  # Default: notes_export_timestamp.txt
+  python smartnotes.py export --format txt --output backup.txt
+
+EXPORT AS MARKDOWN:
+  python smartnotes.py export --format md --output notes.md
+
+EXPORT AS JSON:
+  python smartnotes.py export --format json --output notes.json
+
+STATISTICS:
+  python smartnotes.py stats                   # View note-taking stats
+
+================================================================================
+CLI FLAGS & OPTIONS
+--------------------------------------------------------------------------------
+
+Global Options:
+  -h, --help         Show help message
+
+add command:
+  content            Note text (required)
+  --tags TAG [TAG]   Additional tags to add
+
+list command:
+  --tag TAG          Filter by specific tag
+  --limit N          Limit to N results
+
+search command:
+  term               Search text (required)
+  --limit N          Limit to N results
+
+show command:
+  id                 Note ID number (required)
+
+edit command:
+  id                 Note ID number (required)
+  content            New content (required)
+
+tag command:
+  id                 Note ID number (required)
+  tags               Tags to add (space-separated)
+
+delete command:
+  id                 Note ID number (required)
+
+export command:
+  --format FORMAT    txt, md, or json (default: txt)
+  --output FILE      Output filename
+
+================================================================================
+PYTHON API
+--------------------------------------------------------------------------------
+
+Import:
+  from smartnotes import SmartNotes
+
+Basic Usage:
+  notes = SmartNotes()
+  notes.add_note("My note", tags=["tag1", "tag2"])
+  notes.list_notes()
+  notes.search("keyword")
+
+Methods:
+  add_note(content, tags=None)      # Add new note
+  list_notes(tag_filter, search)    # List/filter notes
+  show_note(note_id)                # Show full note
+  edit_note(note_id, new_content)   # Edit note
+  delete_note(note_id)              # Delete note
+  tag_note(note_id, tags)           # Add tags
+  list_tags()                       # List all tags
+  export_notes(format, output)      # Export notes
+  get_stats()                       # View statistics
+
+Properties:
+  notes.notes                       # List of all note dicts
+  notes.notes_file                  # Path to JSON storage
+  notes.config                      # Configuration dict
+
+================================================================================
+INTEGRATION WITH TEAM BRAIN TOOLS
+--------------------------------------------------------------------------------
+
+With SynapseLink:
+  from synapselink import quick_send
+  from smartnotes import SmartNotes
+  
+  notes = SmartNotes()
+  notes.add_note("Meeting notes from BCH session", tags=["bch", "meeting"])
+  quick_send("TEAM", "Meeting Notes Added", "See SmartNotes #meeting")
+
+With SessionReplay:
+  from sessionreplay import SessionReplay
+  from smartnotes import SmartNotes
+  
+  replay = SessionReplay()
+  notes = SmartNotes()
+  
+  # Log session to SmartNotes
+  session_data = replay.get_session_summary(session_id)
+  notes.add_note(f"Session: {session_data}", tags=["session", "log"])
+
+With TaskQueuePro:
+  from taskqueuepro import TaskQueuePro
+  from smartnotes import SmartNotes
+  
+  queue = TaskQueuePro()
+  notes = SmartNotes()
+  
+  # Create note for each task
+  tasks = queue.list_tasks(status="pending")
+  for task in tasks:
+      notes.add_note(f"Task: {task.title}", tags=["task", task.agent])
+
+================================================================================
+FILE STORAGE
+--------------------------------------------------------------------------------
+
+Config Directory:
+  ~/.smartnotes/
+
+Files:
+  notes.json          # All notes stored here
+  config.json         # Configuration (reserved for future)
+
+Windows Location:
+  C:\Users\YourName\.smartnotes\
+
+Linux/Mac Location:
+  /home/username/.smartnotes/
+
+================================================================================
+RECOMMENDED TAG SYSTEM
+--------------------------------------------------------------------------------
+
+Context Tags:
+  #work              Work-related
+  #personal          Personal notes
+  #project           Project-specific
+
+Status Tags:
+  #todo              Action required
+  #done              Completed
+  #urgent            High priority
+  #someday           Future consideration
+
+Type Tags:
+  #idea              Ideas and concepts
+  #meeting           Meeting notes
+  #journal           Daily entries
+  #code              Code snippets
+  #solved            Problem solutions
+
+================================================================================
+TROUBLESHOOTING
+--------------------------------------------------------------------------------
+
+Error: "Command not found"
+  -> Use full path: python /path/to/smartnotes.py add "test"
+
+Error: "No notes found"
+  -> Add a note first: python smartnotes.py add "First note"
+
+Error: "Note #N not found"
+  -> Check valid IDs: python smartnotes.py list
+
+Error: "Permission denied"
+  -> Check file permissions: chmod 644 ~/.smartnotes/notes.json
+
+Unicode Issues (Windows):
+  -> Set console: chcp 65001
+  -> Or use: python -X utf8 smartnotes.py list
+
+Can't find notes file:
+  -> Default location: ~/.smartnotes/notes.json
+  -> Check with: python smartnotes.py stats
+
+================================================================================
+KEYBOARD SHORTCUTS (Terminal)
+--------------------------------------------------------------------------------
+
+Ctrl+C              Cancel current command
+Ctrl+L              Clear screen
+Up/Down Arrow       Command history
+Tab                 Auto-complete (shell dependent)
+
+================================================================================
+BEST PRACTICES
+--------------------------------------------------------------------------------
+
+1. Capture First, Organize Later
+   - Don't overthink tags when adding
+   - Add tags later with: python smartnotes.py tag ID newtag
+
+2. Use Consistent Tags
+   - Create a personal tag system and stick to it
+   - Review with: python smartnotes.py tags
+
+3. Regular Backups
+   - Weekly: python smartnotes.py export --format json
+   - Monthly: Copy ~/.smartnotes/ to backup location
+
+4. Date Prefixes for Journals
+   - "2026-01-29: Today's goals..." makes chronological search easy
+
+5. Search Before Adding
+   - Avoid duplicates: python smartnotes.py search "keyword"
+
+================================================================================
+RESOURCES
+--------------------------------------------------------------------------------
+
+Documentation:   SmartNotes/README.md
+Examples:        SmartNotes/EXAMPLES.md
+Integration:     SmartNotes/INTEGRATION_PLAN.md
+Quick Start:     SmartNotes/QUICK_START_GUIDES.md
+GitHub:          https://github.com/DonkRonk17/SmartNotes
+Issues:          https://github.com/DonkRonk17/SmartNotes/issues
+
+================================================================================
+ABOUT SMARTNOTES
+--------------------------------------------------------------------------------
+
+Version:         1.0
+Author:          Team Brain / Forge
+License:         MIT (Logan Smith / Metaphy LLC)
+Dependencies:    Python 3.7+ (standard library only)
+Platforms:       Windows, macOS, Linux
+
+Part of the Team Brain / Beacon HQ Ecosystem
+https://github.com/DonkRonk17
+
+================================================================================
